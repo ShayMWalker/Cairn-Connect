@@ -1,0 +1,16 @@
+Course Project
+
+In Database Design Concepts, the students created a database structure for keeping track of alumni data.  Only the database structure was finalized, and the front end will be completed in this course.  Each of the students has their own database space on the csinfo server where they can install the necessary tables for their own work.  If students prefer  to work in SQL Server, they can request to have the environment set up.  
+
+For the front end, they can use whatever language they would like.   The front end should include the ability to add a record to the database, browse records, and update records.  Search and delete are optional, as are any other features the students feel are necessary.  Refer to the classroom discussion notes from 1/30 for additional feature ideas.  Each student is expected to create their own version of a front end; this is not intended to be a group project.  Synchronizing their projects with their github repository is expected.
+
+Feature ideas:
+
+Add/browse/update records
+Search / delete
+Self service registration
+Password recovery
+Reporting (admin, export, listings by class year, major, business networking support)
+Contact a classmate
+News
+Self Service portal
