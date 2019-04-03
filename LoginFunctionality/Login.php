@@ -1,5 +1,5 @@
 <?php
-	require "headerA.php";
+	require "header.php";
 ?>
 	<main>
     <body style="font-family: 'Roboto', sans-serif;">
@@ -35,7 +35,7 @@
 
 
                       </form>
-                      ?>
+
                     </div>
     			       </div>
               </div>
