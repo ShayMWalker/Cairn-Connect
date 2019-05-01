@@ -1,6 +1,6 @@
 <?php
 require_once "header.php";
-if (isset($_POST['signup-submit'])) {
+if (isset($_POST['edits-submit'])) {
 
     require 'dbh.inc.php';
     $First_Name = $_POST['first_name'];
@@ -18,24 +18,23 @@ if (isset($_POST['signup-submit'])) {
 
     if (empty($username) || empty($email) || empty($password) || empty($passwordRepeat)) {
       // code...
-      header("Location: ../signup.php?error=emptyfields&uid=".$username."&mail=".$email);
+      header("Location: ../Edit_User_Profile.php?error=emptyfields&uid=".$username."&mail=".$email);
       exit();
     }
 
     elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      header("Location: ../signup.php?error=invalidmail&uid=".$username);
+      header("Location: ../Edit_User_Profile.php?error=invalidmail&uid=".$username);
       exit();
     }
-
     elseif ($password !== $passwordRepeat) {
-      header("Location: ../signup.php?error=passwordcheck&uid=".$username."&mail".$email);
+      header("Location: ../Edit_User_Profile.php?error=passwordcheck&uid=".$username."&mail".$email);
       exit();
     }
     else {
       $sql = "SELECT Email FROM `Registered Profiles` WHERE Email=?";
       $stmt = mysqli_stmt_init($conn);
       if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../signup.php?error=sqlerror");
+        header("Location: ../Edit_User_Profile.php?error=sqlerror");
         exit ();
       }
       else{
@@ -44,14 +43,14 @@ if (isset($_POST['signup-submit'])) {
         mysqli_stmt_store_result($stmt);
         $resultCheck = mysqli_stmt_num_rows($stmt);
         if ($resultCheck > 0) {
-          header("Location: ../signup.php?error=usertaken&mail=".$email);
+          header("Location: ../Edit_User_Profile.php?error=usertaken&mail=".$email);
           exit ();
         }
         else {
-        $sql = "INSERT INTO `Registered Profiles` (First_Name, Last_Name, Email, Password, Phone, Graduation_Year, School, Degree, Current_Occupation, LinkedIn_Link ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE `Registered Profiles`SET First_Name = ?, Last_Name = ?, Email = ?, Password = ?, Phone = ?, Graduation_Year = ?, School = ?, Degree = ?, Current_Occupation = ?, LinkedIn_Link = ?  WHERE User_ID = {$_SESSION['userId']} ";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-          header("Location: ../signup.php?error=sqlerror");
+          header("Location: ../Edit_User_Profile.php?error=sqlerror");
           exit ();
         }
         else {
@@ -69,9 +68,7 @@ if (isset($_POST['signup-submit'])) {
              $p9=$Current_Occupation;
              $p10=$LinkedIn_Profile;
           mysqli_stmt_execute($stmt);
-          $_SESSION['userId'] = mysqli_insert_id($conn);
-          $_SESSION['userUid'] = $email;
-          header("Location: ../News_Page.php");
+          header("Location: ../UserProfile.php");
           exit ();
         }
         }
@@ -81,6 +78,6 @@ if (isset($_POST['signup-submit'])) {
     mysqli_close($conn);
 }
 else {
-  header("Location: ../signup.php");
+  header("Location: ../Edit_User_Profile.php");
   exit ();
 }
